@@ -1,2 +1,30 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+
+:root {
+  --ion-font-family: 'Poppins', sans-serif;
+
+  --ion-color-primary: #5b4e9a;
+  --ion-color-primary-rgb: 91, 78, 154;
+  --ion-color-primary-contrast: #fbf0d9;
+  --ion-color-primary-contrast-rgb: 251, 240, 217;
+  --ion-color-primary-shade: #504589;
+  --ion-color-primary-tint: #6c5fa4;
+
+  --ion-background-color: #fbf0d9;
+  --ion-background-color-rgb: 251, 240, 217;
+  --ion-text-color: #4a2c17;
+  --ion-text-color-rgb: 74, 44, 23;
+
+  --ion-item-background: #fdf6ea;
+  --ion-card-background: #fdf6ea;
+
+  --ion-tab-bar-background: #fdf6ea;
+  --ion-tab-bar-color: #4a2c17;
+  --ion-tab-bar-color-selected: #5b4e9a;
+}
+
+h1, h2, h3, ion-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+}
