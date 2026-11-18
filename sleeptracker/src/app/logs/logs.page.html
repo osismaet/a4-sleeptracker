@@ -1,13 +1,62 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>logs</ion-title>
+    <ion-title>Logs</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">logs</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="day-bar">
+    <ion-button fill="clear" size="default" aria-label="Previous day" (click)="changeDay(-1)">
+      <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" class="day-label" id="day-picker-trigger" (click)="pickerOpen = true">
+      {{ dayLabel }}
+      <ion-icon slot="end" name="chevron-down"></ion-icon>
+    </ion-button>
+
+    <ion-button fill="clear" size="default" aria-label="Next day" [disabled]="isToday" (click)="changeDay(1)">
+      <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+    </ion-button>
+  </div>
+
+  <ion-popover trigger="day-picker-trigger" [isOpen]="pickerOpen" (didDismiss)="pickerOpen = false">
+    <ng-template>
+      <ion-datetime
+        presentation="date"
+        [value]="selectedKey"
+        [max]="todayKey"
+        (ionChange)="onDatePicked($event)">
+      </ion-datetime>
+    </ng-template>
+  </ion-popover>
+
+  @if (logsForDay.length > 0) {
+    <ion-list lines="none" class="log-list">
+      @for (log of logsForDay; track log.id) {
+        <ion-item-sliding>
+          <ion-item>
+            <ion-icon slot="start" [name]="isOvernight(log) ? 'moon' : 'happy'" color="primary"></ion-icon>
+            <ion-label>
+              <h3>{{ title(log) }}</h3>
+              @if (note(log)) {
+                <p class="note">{{ note(log) }}</p>
+              }
+            </ion-label>
+            <ion-note slot="end">{{ rightText(log) }}</ion-note>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="deleteLog(log)">
+              <ion-icon slot="top" name="trash"></ion-icon>
+              Delete
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      }
+    </ion-list>
+    <p class="hint">Swipe a log left to delete it</p>
+  } @else {
+    <p class="empty">Nothing logged for {{ dayLabel.toLowerCase() }}.</p>
+  }
 </ion-content>

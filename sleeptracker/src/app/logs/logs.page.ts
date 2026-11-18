@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel,
   IonItemSliding, IonItemOptions, IonItemOption, IonIcon, IonButton,
-  IonPopover, IonDatetime, ToastController } from '@ionic/angular/standalone';
+  IonPopover, IonDatetime, ToastController, IonNote } from '@ionic/angular/standalone';
   import { addIcons } from 'ionicons';
 import { moon, happy, chevronDown, chevronBack, chevronForward, trash } from 'ionicons/icons';
 import { SleepService } from '../services/sleep.service';
@@ -18,7 +18,7 @@ import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonList, IonItem, IonLabel,
     IonItemSliding, IonItemOptions, IonItemOption, IonIcon, IonButton,
-    IonPopover, IonDatetime]
+    IonPopover, IonDatetime, IonNote]
 })
 export class LogsPage implements OnInit {
   selectedDate:Date = LogsPage.startOfDay(new Date());
