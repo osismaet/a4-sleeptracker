@@ -104,7 +104,8 @@ export class LogsPage implements OnInit {
     const toast = await this.toastCtrl.create({
       message: 'Log deleted',
       duration: 5000,
-      position: 'top',
+      position: 'bottom',
+      positionAnchor: 'app-tab-bar',
       buttons: [{ text: 'Undo', handler: () => this.undoDelete(log) }]
     });
     await toast.present();
