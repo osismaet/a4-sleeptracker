@@ -1,27 +1,69 @@
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+ion-content {
+  --padding-top: calc(var(--ion-safe-area-top, 0px) + 16px);
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
+h1 {
   margin: 0;
+  font-size: 1.9rem;
 }
 
-#container a {
-  text-decoration: none;
+h2 {
+  margin: 0 0 8px;
+  font-size: 1.2rem;
+}
+
+.subtitle {
+  margin: 0 0 8px;
+}
+
+.last-night {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.big-moon {
+  font-size: 110px;
+  color: var(--ion-color-primary);
+}
+
+.duration {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--ion-color-primary);
+}
+
+.range {
+  opacity: 0.85;
+}
+
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+ion-button {
+  min-height: 44px; 
+}
+
+.card {
+  background: var(--ion-card-background);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.scale-ends {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  padding: 0 4px;
+}
+
+.scale-desc {
+  text-align: center;
+  min-height: 3em; 
+  margin: 8px 0 0;
 }
