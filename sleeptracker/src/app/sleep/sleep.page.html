@@ -1,13 +1,64 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>sleep</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+  <h1>Log sleep</h1>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">sleep</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="card">
+    <h2>Log sleep manually</h2>
+
+    <div class="row">
+      <span class="label">Went to bed</span>
+      <ion-datetime-button datetime="bed-picker"></ion-datetime-button>
+    </div>
+
+    <div class="row">
+      <span class="label">Woke up</span>
+      <ion-datetime-button datetime="wake-picker"></ion-datetime-button>
+    </div>
+
+    <!-- The popups that the buttons above open -->
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime
+          id="bed-picker"
+          [value]="bedIso"
+          [max]="maxIso"
+          [showDefaultButtons]="true"
+          (ionChange)="onBedChange($event)">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime
+          id="wake-picker"
+          [value]="wakeIso"
+          [min]="bedIso"
+          [max]="maxIso"
+          [showDefaultButtons]="true"
+          (ionChange)="onWakeChange($event)">
+        </ion-datetime>
+      </ng-template>
+    </ion-modal>
+
+    <!-- Live feedback: the duration if valid, otherwise what's wrong -->
+    @if (error) {
+      <p class="error" role="alert">{{ error }}</p>
+    } @else {
+      <p class="preview">You slept <strong>{{ durationPreview }}</strong></p>
+    }
+
+    <ion-textarea
+      class="note"
+      aria-label="Note"
+      placeholder="Add a note..."
+      [rows]="4"
+      [maxlength]="300"
+      [value]="note"
+      (ionInput)="onNoteInput($event)">
+    </ion-textarea>
+
+    <div class="button-row">
+      <ion-button shape="round" [disabled]="!!error" (click)="save()">save sleep</ion-button>
+    </div>
+  </div>
 </ion-content>
