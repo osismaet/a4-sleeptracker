@@ -13,6 +13,9 @@ export class SleepService {
 	public static AllOvernightData:OvernightSleepData[] = [];
 	public static AllSleepinessData:StanfordSleepinessData[] = [];
 
+	public static ActiveSleepStart:Date | null = null;
+	
+	private static ACTIVE_KEY = 'activeSleepStart';
 	private static OVERNIGHT_KEY = 'overnightLogs';
 	private static SLEEPINESS_KEY = 'sleepinessLogs';
 
@@ -40,8 +43,10 @@ export class SleepService {
 		await this.storage.create();
 		const overnight = (await this.storage.get(SleepService.OVERNIGHT_KEY)) ?? [];
 		const sleepiness = (await this.storage.get(SleepService.SLEEPINESS_KEY)) ?? [];
+		const active = await this.storage.get(SleepService.ACTIVE_KEY);
 		SleepService.AllOvernightData = overnight.map((r:any) => OvernightSleepData.fromRecord(r));
 		SleepService.AllSleepinessData = sleepiness.map((r:any) => StanfordSleepinessData.fromRecord(r));
+		SleepService.ActiveSleepStart = active ? new Date(active) : null;
 		this.rebuildAll();
 	}
 
@@ -66,6 +71,17 @@ export class SleepService {
 		await this.save();
 	}
 
+	public async startSleep() {
+		SleepService.ActiveSleepStart = new Date();
+		await this.storage.set(SleepService.ACTIVE_KEY, SleepService.ActiveSleepStart.toISOString());
+	}
+
+	public async clearActiveSleep() {
+		SleepService.ActiveSleepStart = null;
+		await this.storage.remove(SleepService.ACTIVE_KEY);
+	}
+
+	
 	private rebuildAll() {
 		SleepService.AllSleepData = [
 			...SleepService.AllOvernightData,
