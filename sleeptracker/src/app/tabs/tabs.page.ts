@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
+import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, NavController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { home, moon, book } from 'ionicons/icons';
+import { SleepService } from '../services/sleep.service';
 
 @Component({
   selector: 'app-tabs',
@@ -9,7 +10,11 @@ import { home, moon, book } from 'ionicons/icons';
   imports: [IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel],
 })
 export class TabsPage {
-  constructor() {
+  constructor(private navCtrl:NavController) {
     addIcons({ home, moon, book });
+
+    if (SleepService.ActiveSleepStart) {
+      this.navCtrl.navigateRoot('/session');
+    }
   }
 }
