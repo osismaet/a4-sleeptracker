@@ -67,3 +67,11 @@ ion-button {
   min-height: 3em; 
   margin: 8px 0 0;
 }
+
+ion-range {
+  --knob-size: 30px;
+  --bar-height: 6px;
+  --bar-background: #e8d9b5;
+  --bar-background-active: var(--ion-color-primary);
+  padding: 12px 0;
+}

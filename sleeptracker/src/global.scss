@@ -36,3 +36,38 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 // @import '@ionic/angular/css/palettes/dark.system.css';
+
+/* ---------- Contrast fixes ---------- */
+ion-note {
+  --color: var(--ion-text-color);
+  opacity: 0.8;
+}
+
+ion-textarea {
+  --placeholder-color: #6b5a4a;
+  --placeholder-opacity: 1;
+}
+
+/* ---------- Toasts: purple with cream text ---------- */
+ion-toast {
+  --background: var(--ion-color-primary);
+  --color: #fbf0d9;
+  --button-color: #fbf0d9;
+  --border-radius: 14px;
+}
+
+/* ---------- Alerts: cream card, Baloo title ---------- */
+ion-alert {
+  --background: #fdf6ea;
+  --max-width: 320px;
+}
+
+ion-alert .alert-title {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  color: var(--ion-text-color);
+}
+
+ion-alert .alert-message {
+  color: var(--ion-text-color);
+}
