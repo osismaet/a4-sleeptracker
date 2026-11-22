@@ -95,7 +95,7 @@ export class SessionPage implements OnInit {
 
     async cancelSleep() {
     const ranMs = Date.now() - this.start.getTime();
-    if (ranMs > 2 * 60 * 1000) {   // only ask if it has been running a while
+    if (ranMs > 2 * 60 * 1000) {  
       const alert = await this.alertCtrl.create({
         header: 'Cancel this sleep?',
         message: 'Nothing will be saved.',
@@ -110,6 +110,42 @@ export class SessionPage implements OnInit {
     }
     await this.sleepService.clearActiveSleep();
     await this.navCtrl.navigateRoot('/home');
+  }
+
+    async save() {
+    if (this.tooLong) return;
+
+    const existing = SleepService.AllOvernightData.find(
+      d => d.sleepEnd.toDateString() === this.end.toDateString()
+    );
+    if (existing) {
+      const alert = await this.alertCtrl.create({
+        header: 'Replace existing log?',
+        message: 'You already logged ' + existing.durationString() + ' of sleep for this day. Replace it?',
+        buttons: [
+          { text: 'Cancel', role: 'cancel' },
+          { text: 'Replace', role: 'confirm' }
+        ]
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      if (role !== 'confirm') return;
+      await this.sleepService.deleteLog(existing);
+    }
+
+    const log = new OvernightSleepData(this.start, this.end, this.note.trim());
+    log.loggedAt = this.end;
+    await this.sleepService.logOvernightData(log);
+    await this.sleepService.clearActiveSleep();
+
+    await this.navCtrl.navigateRoot('/home');
+    const toast = await this.toastCtrl.create({
+      message: 'Sleep saved',
+      duration: 2000,
+      position: 'bottom',
+      positionAnchor: 'app-tab-bar'
+    });
+    await toast.present();
   }
 
   ngOnInit() {
