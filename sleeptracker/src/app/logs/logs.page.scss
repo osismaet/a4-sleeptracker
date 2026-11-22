@@ -1,8 +1,19 @@
+ion-content {
+  --padding-top: calc(var(--ion-safe-area-top, 0px) + 32px);
+  --padding-start: 20px;
+  --padding-end: 20px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.9rem;
+}
+
 .day-bar {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 8px 0;
+  padding: 0;
 }
 
 .day-label {
@@ -19,7 +30,7 @@
 }
 
 ion-item-sliding {
-  margin: 8px 16px;
+  margin: 10px 0;
   width: auto;
   border-radius: 14px;
   overflow: hidden;
@@ -30,8 +41,10 @@ ion-item {
   --min-height: 56px;
 }
 
-.note {
+ion-label p.note {
   white-space: normal;
+  color: var(--ion-text-color);
+  opacity: 0.8;
 }
 
 .hint,
@@ -39,5 +52,16 @@ ion-item {
   text-align: center;
   font-size: 0.85rem;
   opacity: 0.7;
-  margin: 16px;
+  margin: 16px 0;
+}
+
+ion-button {
+  min-height: 44px;
+}
+
+ion-modal.date-modal {
+  --width: 350px;
+  --max-width: 92vw;
+  --height: auto;
+  --border-radius: 18px;
 }

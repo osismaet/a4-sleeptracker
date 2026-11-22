@@ -1,10 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Logs</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
+<ion-content class="ion-padding">
+  <h1>Logs</h1>
   <div class="day-bar">
     <ion-button fill="clear" size="default" aria-label="Previous day" (click)="changeDay(-1)">
       <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
@@ -20,7 +15,7 @@
     </ion-button>
   </div>
 
-  <ion-popover trigger="day-picker-trigger" [isOpen]="pickerOpen" (didDismiss)="pickerOpen = false">
+  <ion-modal class="date-modal" [isOpen]="pickerOpen" (didDismiss)="pickerOpen = false">
     <ng-template>
       <ion-datetime
         presentation="date"
@@ -29,7 +24,7 @@
         (ionChange)="onDatePicked($event)">
       </ion-datetime>
     </ng-template>
-  </ion-popover>
+  </ion-modal>
 
   @if (logsForDay.length > 0) {
     <ion-list lines="none" class="log-list">
