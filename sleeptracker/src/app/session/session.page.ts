@@ -58,6 +58,60 @@ export class SessionPage implements OnInit {
     this.elapsed = p(Math.floor(total / 3600)) + ':' + p(Math.floor(total / 60) % 60) + ':' + p(total % 60);
   }
 
+   get durationText():string {
+    const totalMinutes = Math.floor((this.end.getTime() - this.start.getTime()) / 60000);
+    return Math.floor(totalMinutes / 60) + ' h ' + (totalMinutes % 60) + ' min';
+  }
+
+  get timeRange():string {
+    const opts:Intl.DateTimeFormatOptions = { hour: 'numeric', minute: '2-digit' };
+    return this.start.toLocaleTimeString('en-US', opts) + ' to ' + this.end.toLocaleTimeString('en-US', opts);
+  }
+
+  get tooLong():boolean {
+    return this.end.getTime() - this.start.getTime() > 24 * 60 * 60 * 1000;
+  }
+
+  onNoteInput(event:any) {
+    this.note = String(event.detail.value ?? '');
+  }
+
+  async confirmEnd() {
+    const alert = await this.alertCtrl.create({
+      header: 'Are you sure you want to end this sleep?',
+      buttons: [
+        { text: 'Yes, end sleep', role: 'confirm' },
+        { text: 'No, cancel', role: 'cancel' }
+      ]
+    });
+    await alert.present();
+    const { role } = await alert.onDidDismiss();
+    if (role === 'confirm') {
+      clearInterval(this.timer);
+      this.end = new Date();
+      this.stage = 'summary';
+    }
+  }
+
+    async cancelSleep() {
+    const ranMs = Date.now() - this.start.getTime();
+    if (ranMs > 2 * 60 * 1000) {   // only ask if it has been running a while
+      const alert = await this.alertCtrl.create({
+        header: 'Cancel this sleep?',
+        message: 'Nothing will be saved.',
+        buttons: [
+          { text: 'Keep sleeping', role: 'cancel' },
+          { text: 'Yes, cancel', role: 'confirm' }
+        ]
+      });
+      await alert.present();
+      const { role } = await alert.onDidDismiss();
+      if (role !== 'confirm') return;
+    }
+    await this.sleepService.clearActiveSleep();
+    await this.navCtrl.navigateRoot('/home');
+  }
+
   ngOnInit() {
   }
 
