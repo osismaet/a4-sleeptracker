@@ -1,5 +1,7 @@
 ion-content {
-  --padding-top: calc(var(--ion-safe-area-top, 0px) + 16px);
+  --padding-top: calc(var(--ion-safe-area-top, 0px) + 32px);
+  --padding-start: 24px;
+  --padding-end: 24px;
 }
 
 h1 {
@@ -13,17 +15,18 @@ h2 {
 }
 
 .subtitle {
-  margin: 0 0 8px;
+  margin: 0 0 24px;
 }
 
 .last-night {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 36px;
 }
 
 .big-moon {
   font-size: 110px;
   color: var(--ion-color-primary);
+  margin-bottom: 12px;
 }
 
 .duration {
@@ -35,13 +38,14 @@ h2 {
 
 .range {
   opacity: 0.85;
+  margin-top: 4px;
 }
 
 .button-row {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  margin-top: 12px;
+  gap: 14px;
+  margin-top: 28px;
 }
 
 ion-button {
@@ -51,7 +55,7 @@ ion-button {
 .card {
   background: var(--ion-card-background);
   border-radius: 18px;
-  padding: 16px;
+  padding: 24px  20px;
 }
 
 .scale-ends {
