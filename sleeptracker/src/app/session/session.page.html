@@ -1,13 +1,42 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>session</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="dark ion-padding">
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">session</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  @if (stage === 'sleeping') {
+    <ion-button fill="clear" class="cancel" (click)="cancelSleep()">
+      <ion-icon slot="start" name="close"></ion-icon>
+      cancel sleep
+    </ion-button>
+
+    <div class="center">
+      <h1>Good night!</h1>
+      <ion-icon name="moon" class="big-moon"></ion-icon>
+      <p>Sleeping for</p>
+      <div class="clock">{{ elapsed }}</div>
+      <ion-button shape="round" class="cream" (click)="confirmEnd()">end sleep</ion-button>
+    </div>
+  } @else {
+    <h1 class="left">Sleep summary</h1>
+
+    <div class="center">
+      <p>Slept for</p>
+      <div class="clock">{{ durationText }}</div>
+      <p>{{ timeRange }}</p>
+
+      @if (tooLong) {
+        <p class="error" role="alert">This sleep is longer than 24 hours, so it can't be saved.</p>
+        <ion-button shape="round" class="cream" (click)="cancelSleep()">discard sleep</ion-button>
+      } @else {
+        <ion-textarea
+          class="note"
+          aria-label="Note"
+          placeholder="Add note..."
+          [rows]="5"
+          [maxlength]="300"
+          [value]="note"
+          (ionInput)="onNoteInput($event)">
+        </ion-textarea>
+        <ion-button shape="round" class="cream" (click)="save()">save sleep</ion-button>
+      }
+    </div>
+  }
+
 </ion-content>
