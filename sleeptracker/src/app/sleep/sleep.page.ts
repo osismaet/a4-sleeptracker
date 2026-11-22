@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
-  IonContent, IonButton, IonDatetime, IonDatetimeButton, IonModal, IonTextarea,
-  ToastController, AlertController
+  IonContent, IonButton, IonIcon, IonDatetime, IonDatetimeButton, IonModal, IonTextarea,
+  NavController, ToastController, AlertController
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { SleepService } from '../services/sleep.service';
@@ -14,7 +14,7 @@ import { OvernightSleepData } from '../data/overnight-sleep-data';
   templateUrl: './sleep.page.html',
   styleUrls: ['./sleep.page.scss'],
   standalone: true,
-  imports: [IonContent, IonButton, IonDatetime, IonDatetimeButton, IonModal, IonTextarea]
+  imports: [IonContent, IonButton, IonDatetime, IonDatetimeButton, IonModal, IonTextarea, IonIcon]
 })
 export class SleepPage implements OnInit {
   bedIso = '';
@@ -24,10 +24,22 @@ export class SleepPage implements OnInit {
   constructor(
     private sleepService:SleepService,
     private router:Router,
+    private navCtrl:NavController,
     private toastCtrl:ToastController,
     private alertCtrl:AlertController
   ) { 
     this.resetForm();
+  }
+
+  ionViewWillEnter() {
+    if (SleepService.ActiveSleepStart) {
+      this.navCtrl.navigateRoot('/session');
+    }
+  }
+
+  async startSleep() {
+    await this.sleepService.startSleep();
+    await this.navCtrl.navigateRoot('/session');
   }
   
   private static toLocalIso(d:Date):string {
