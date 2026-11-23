@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { IonContent, IonButton, IonIcon, IonTextarea,
   NavController, AlertController, ToastController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -13,7 +13,7 @@ import { OvernightSleepData } from '../data/overnight-sleep-data';
   standalone: true,
   imports: [IonContent, IonButton, IonIcon, IonTextarea]
 })
-export class SessionPage implements OnInit {
+export class SessionPage {
   stage:'sleeping' | 'summary' = 'sleeping';
   start:Date = new Date();
   end:Date = new Date();
@@ -145,9 +145,6 @@ export class SessionPage implements OnInit {
       positionAnchor: 'app-tab-bar'
     });
     await toast.present();
-  }
-
-  ngOnInit() {
   }
 
 }

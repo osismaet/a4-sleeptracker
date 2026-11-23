@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {
   IonContent, IonButton, IonIcon, IonDatetime, IonDatetimeButton, IonModal, IonTextarea,
   NavController, ToastController, AlertController
@@ -14,7 +14,7 @@ import { OvernightSleepData } from '../data/overnight-sleep-data';
   standalone: true,
   imports: [IonContent, IonButton, IonDatetime, IonDatetimeButton, IonModal, IonTextarea, IonIcon]
 })
-export class SleepPage implements OnInit {
+export class SleepPage {
   bedIso = '';
   wakeIso = '';
   note = '';
@@ -146,9 +146,6 @@ export class SleepPage implements OnInit {
 
     this.resetForm();
     this.router.navigateByUrl('/home');
-  }
-
-  ngOnInit() {
   }
 
 }

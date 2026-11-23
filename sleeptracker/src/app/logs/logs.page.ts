@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel,
@@ -20,7 +20,7 @@ import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
     IonItemSliding, IonItemOptions, IonItemOption, IonIcon, IonButton,
     IonModal, IonDatetime, IonNote]
 })
-export class LogsPage implements OnInit {
+export class LogsPage {
   selectedDate:Date = LogsPage.startOfDay(new Date());
   pickerOpen = false;
 
@@ -124,8 +124,6 @@ export class LogsPage implements OnInit {
     } else if (log instanceof StanfordSleepinessData) {
       await this.sleepService.logSleepinessData(log);
     }
-  }
-  ngOnInit() {
   }
 
 }
