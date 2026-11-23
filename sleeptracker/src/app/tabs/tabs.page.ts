@@ -13,6 +13,7 @@ export class TabsPage {
   constructor(private navCtrl:NavController) {
     addIcons({ home, moon, book });
 
+    // resume currently running sleep
     if (SleepService.ActiveSleepStart) {
       this.navCtrl.navigateRoot('/session');
     }

@@ -4,7 +4,6 @@ import { IonContent, IonButton, IonIcon, IonRange, ToastController } from '@ioni
 import { SleepService } from '../services/sleep.service';
 import { addIcons } from 'ionicons';
 import { moon, happy, sad } from 'ionicons/icons';
-import { SleepData } from '../data/sleep-data';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
 import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
 
@@ -25,6 +24,8 @@ export class HomePage {
 		addIcons({ moon, happy, sad });
 	}
 
+	/* ---------- last night's sleep ---------- */
+
   	get lastNight():OvernightSleepData | undefined {
     return [...SleepService.AllOvernightData]
       .sort((a, b) => b.sleepEnd.getTime() - a.sleepEnd.getTime())[0];
@@ -33,6 +34,8 @@ export class HomePage {
     return a.toDateString() === b.toDateString();
   }
 
+  /* ---------- sleepiness ---------- */
+
   get latestSleepinessToday():StanfordSleepinessData | undefined {
     const today = new Date();
     return SleepService.AllSleepinessData
@@ -40,6 +43,7 @@ export class HomePage {
       .sort((a, b) => b.loggedAt.getTime() - a.loggedAt.getTime())[0];
   }
 
+  /* 2 hours after the last log, rounded up */
   get nextLogTime():Date | undefined {
     const latest = this.latestSleepinessToday;
     if (!latest) return undefined;
@@ -49,7 +53,8 @@ export class HomePage {
     }
     return next;
   }
-
+  
+  /* logged state active until next log time */
   get showLoggedState():boolean {
     const next = this.nextLogTime;
     return !this.forceSlider && !!next && new Date() < next;

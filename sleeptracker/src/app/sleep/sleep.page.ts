@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import {
   IonContent, IonButton, IonIcon, IonDatetime, IonDatetimeButton, IonModal, IonTextarea,
   NavController, ToastController, AlertController
@@ -70,9 +68,12 @@ export class SleepPage implements OnInit {
   get bed():Date { return new Date(this.bedIso); }
   get wake():Date { return new Date(this.wakeIso); }
 
+  /* latest time the pickers allow */
   get maxIso():string {
     return SleepPage.toLocalIso(new Date());
   }
+
+  /* ---------- validation ---------- */
 
   get error():string {
     const now = new Date();
@@ -94,6 +95,8 @@ export class SleepPage implements OnInit {
     return Math.floor(totalMinutes / 60) + ' h ' + (totalMinutes % 60) + ' min';
   }
 
+  /* ---------- events ---------- */
+
   onBedChange(event:any) {
     this.bedIso = String(event.detail.value);
   }
@@ -110,7 +113,7 @@ export class SleepPage implements OnInit {
     if (this.error) return;
     const wake = this.wake;
 
-    // Only one overnight log per day (counted by wake-up day): ask before replacing
+    // only one overnight log per day
     const existing = SleepService.AllOvernightData.find(
       d => d.sleepEnd.toDateString() === wake.toDateString()
     );

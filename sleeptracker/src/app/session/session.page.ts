@@ -1,6 +1,4 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { IonContent, IonButton, IonIcon, IonTextarea,
   NavController, AlertController, ToastController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -52,6 +50,7 @@ export class SessionPage implements OnInit {
     clearInterval(this.timer);
   }
 
+  /* clock is always current time - start time */
   private tick() {
     const total = Math.max(0, Math.floor((Date.now() - this.start.getTime()) / 1000));
     const p = (n:number) => String(n).padStart(2, '0');

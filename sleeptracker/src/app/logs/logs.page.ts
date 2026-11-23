@@ -27,6 +27,8 @@ export class LogsPage implements OnInit {
   constructor(private sleepService:SleepService, private toastCtrl:ToastController) {
     addIcons({ moon, happy, chevronDown, chevronBack, chevronForward, trash });
   }
+
+  /* ---------- day selection ---------- */
   
   private static startOfDay(d:Date):Date {
     return new Date(d.getFullYear(), d.getMonth(), d.getDate());
@@ -41,6 +43,7 @@ export class LogsPage implements OnInit {
     return LogsPage.dateKey(a) === LogsPage.dateKey(b);
   }
 
+  /* val for the date picker, and latest day it allows */
   get selectedKey():string { return LogsPage.dateKey(this.selectedDate); }
   get todayKey():string { return LogsPage.dateKey(new Date()); }
 
@@ -71,6 +74,9 @@ export class LogsPage implements OnInit {
     this.pickerOpen = false;
   }
 
+  /* ---------- logs to show ---------- */
+
+  /* sleep is logged on the day of the wakeup */
   private logDay(log:SleepData):Date {
     return log instanceof OvernightSleepData ? log.sleepEnd : log.loggedAt;
   }
@@ -79,6 +85,7 @@ export class LogsPage implements OnInit {
     return SleepService.AllSleepData.filter(log => LogsPage.sameDay(this.logDay(log), this.selectedDate));
   }
 
+  /* ---------- row text ---------- */
   isOvernight(log:SleepData):boolean {
     return log instanceof OvernightSleepData;
   }
